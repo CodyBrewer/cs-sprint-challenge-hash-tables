@@ -3,12 +3,22 @@ class Ticket:
     def __init__(self, source, destination):
         self.source = source
         self.destination = destination
-
+        self.next = None
 
 def reconstruct_trip(tickets, length):
     """
     YOUR CODE HERE
     """
-    # Your code here
+    cache = {}
+    for ticket in tickets:
+        ticket.next = ticket.destination
+        cache[ticket.source] = ticket.next
 
+    route = []
+    current = cache["NONE"]
+    
+    for i in range(length):
+        route.append(current)
+        current = cache[current]
+    
     return route
